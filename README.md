@@ -64,8 +64,11 @@ Fertig, wenn du siehst:
 ### 4. Tile-Server starten
 
 ```bash
-docker rm -f osm-server 2>/dev/null || true
+# Stoppe alten Container (falls vorhanden)
+docker stop osm-server 2>/dev/null || true
+docker rm osm-server 2>/dev/null || true
 
+# Starte neuen Container
 docker run -d \
   --name osm-server \
   --shm-size=1g \
@@ -113,6 +116,43 @@ docker rm -f osm-server
 
 # Tile-Server Ressourcennutzung:
 docker stats
+```
+
+---
+
+## 🎯 Pre-Rendering Tipp
+
+Für bessere Performance kannst du Tiles vorab rendern:
+
+```bash
+chmod +x render_tiles.sh
+./render_tiles.sh
+```
+
+**Das Script läuft im Hintergrund - du kannst dich sicher abmelden!**
+
+**Logs findest du im Ordner `./render_logs`**
+
+z. B. `zoom_9.log`, `zoom_10.log`, ...
+
+**Fortschritt verfolgen:**
+```bash
+tail -f render_logs/background.log
+```
+
+**Spezifische Zoom-Level Logs:**
+```bash
+tail -f render_logs/zoom_14.log
+```
+
+**Fertige Zoom-Level prüfen:**
+```bash
+cat render_logs/done.txt
+```
+
+**Render-Prozesse stoppen:**
+```bash
+docker exec osm-server pkill -f render_list
 ```
 
 ---
