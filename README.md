@@ -140,6 +140,16 @@ z. B. `zoom_9.log`, `zoom_10.log`, ...
 tail -f render_logs/background.log
 ```
 
+**Beispiel-Output:**
+```bash
+SERVER $ tail -f render_logs/background.log
+Starte Zoom 9 ...
+OK: Zoom 9 abgeschlossen.
+Starte Zoom 10 ...
+OK: Zoom 10 abgeschlossen.
+Starte Zoom 11 ...
+```
+
 **Spezifische Zoom-Level Logs:**
 ```bash
 tail -f render_logs/zoom_14.log
